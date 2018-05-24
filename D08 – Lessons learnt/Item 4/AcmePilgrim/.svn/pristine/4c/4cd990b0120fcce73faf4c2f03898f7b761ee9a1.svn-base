@@ -1,0 +1,12 @@
+package services;
+
+import domain.Stage;
+
+public class StageService {
+
+	public void save(Stage stage) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -1,0 +1,154 @@
+package domain;
+
+import java.util.Collection;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.Valid;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
+
+@Entity
+@Access(AccessType.PROPERTY)
+public class Stage extends DomainEntity{
+	// Attributes ----------------------------------------------------
+	private String name;
+	private String description;
+	private GPS origin;
+	private GPS destination;
+	private Integer lenghtKm;
+	private Integer lenghtMi;
+	private Integer difficultyLevel;
+	private String briefTextDescription;
+	private Double ratingL;
+	private Double ratingD;
+	
+	// Getters&Setters ----------------------------------------------------
+	
+	@NotBlank
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	@NotBlank
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	@AttributeOverrides({
+		@AttributeOverride(name="title",
+			column=@Column(name="originTitle")),
+		@AttributeOverride(name="description",
+			column=@Column(name="originDescription")),
+		@AttributeOverride(name="longitude",
+			column=@Column(name="originLongitude")),
+		@AttributeOverride(name="latitude",
+			column=@Column(name="originLatitude")),
+		@AttributeOverride(name="altitude",
+			column=@Column(name="originAltitude"))
+	})
+	public GPS getOrigin() {
+		return origin;
+	}
+	public void setOrigin(GPS origin) {
+		this.origin = origin;
+	}
+	
+	
+	@AttributeOverrides({
+		@AttributeOverride(name="title",
+			column=@Column(name="destinationTitle")),
+		@AttributeOverride(name="description",
+			column=@Column(name="destinationDescription")),
+		@AttributeOverride(name="longitude",
+			column=@Column(name="destinationLongitude")),
+		@AttributeOverride(name="latitude",
+			column=@Column(name="destinationLatitude")),
+		@AttributeOverride(name="altitude",
+			column=@Column(name="destinationAltitude"))
+	})
+	public GPS getDestination() {
+		return destination;
+	}
+	public void setDestination(GPS destination) {
+		this.destination = destination;
+	}
+	
+	
+	public Integer getLenghtKm() {
+		return lenghtKm;
+	}
+	public void setLenghtKm(Integer lenghtKm) {
+		this.lenghtKm = lenghtKm;
+	}
+	
+	
+	public Integer getLenghtMi() {
+		return lenghtMi;
+	}
+	public void setLenghtMi(Integer lenghtMi) {
+		this.lenghtMi = lenghtMi;
+	}
+	
+	@Range(min=0,max=10)
+	public Integer getDifficultyLevel() {
+		return difficultyLevel;
+	}
+	public void setDifficultyLevel(Integer difficultyLevel) {
+		this.difficultyLevel = difficultyLevel;
+	}
+	
+	@NotBlank
+	public String getBriefTextDescription() {
+		return briefTextDescription;
+	}
+	public void setBriefTextDescription(String briefTextDescription) {
+		this.briefTextDescription = briefTextDescription;
+	}
+	
+	public Double getRatingL() {
+		return ratingL;
+	}
+	public void setRatingL(Double ratingL) {
+		this.ratingL = ratingL;
+	}
+	
+	public Double getRatingD() {
+		return ratingD;
+	}
+	public void setRatingD(Double ratingD) {
+		this.ratingD = ratingD;
+	}
+	
+	
+	// Relationships ----------------------------------------------------
+	private Collection<Assessment> assessments;
+//	private Collection<Route> routes;
+
+	@Valid
+	@OneToMany(mappedBy = "stage")
+	public Collection<Assessment> getAssessments() {
+		return assessments;
+	}
+	public void setAssessments(Collection<Assessment> assessments) {
+		this.assessments = assessments;
+	}
+//	public Collection<Route> getRoutes() {
+//		return routes;
+//	}
+//	public void setRoutes(Collection<Route> routes) {
+//		this.routes = routes;
+//	}
+}

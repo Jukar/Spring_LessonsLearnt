@@ -1,0 +1,23 @@
+package repositories;
+
+import java.util.Collection;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import domain.Complaint;
+
+@Repository
+public interface ComplaintRepository extends JpaRepository<Complaint,Integer>{
+//	@Query("select avg(count(c)) from Pilgrim p join p.complains c")
+	@Query("select avg(p.complaints.size) from Pilgrim p")
+	Double avrComplaint();
+	//Sin comprobar
+	
+	@Query("select p.complaints from Pilgrim p where p.id=?1")
+	Collection<Complaint> findByPilgrimId(int pilgrimId);
+	//Sin comprobar
+	
+	@Query("select a.complaints from Administrator a where a.id=?1")
+	Collection<Complaint> findByAdministratorId(int administratorId);
+	//Sin comprobar
+}

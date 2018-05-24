@@ -1,0 +1,22 @@
+package services;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import repositories.StageRatingRepository;
+import repositories.StageRepository;
+
+import domain.Stage;
+@Service
+@Transactional
+public class StageService {
+	@Autowired
+	private StageRepository stageRepository;
+	public void save(Stage stage) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

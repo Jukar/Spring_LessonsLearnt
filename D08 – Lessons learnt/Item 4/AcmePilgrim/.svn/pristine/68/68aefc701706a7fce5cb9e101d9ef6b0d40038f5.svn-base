@@ -1,0 +1,14 @@
+package services;
+
+import security.UserAccount;
+import domain.Administrator;
+
+public class AdministratorService {
+
+	public Administrator findByUserAccount(UserAccount userAccount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	// @Query(select p from Profesor p where p.userAccount=?1)
+			// Profesor findByUserAccount(UserAccont userAccount);
+}

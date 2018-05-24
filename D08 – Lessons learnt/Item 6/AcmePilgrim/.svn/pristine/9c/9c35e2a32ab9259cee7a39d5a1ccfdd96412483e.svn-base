@@ -1,0 +1,79 @@
+package services;
+
+import java.util.Collection;
+import javax.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import domain.Pilgrim;
+import domain.StageRating;
+import repositories.StageRatingRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
+import org.springframework.util.Assert;
+
+@Service
+@Transactional
+public class StageRatingService {
+	
+	// ------------------- Managed repository --------------------
+	
+	@Autowired
+	private StageRatingRepository stageRatingRepository;
+	
+	// ------------------- Supporting services -------------------
+	
+	@Autowired
+	private PilgrimService pilgrimService;
+	
+	// ----------------------- Constructor -----------------------
+	
+	// ------------------- Simple CRUD methods -------------------
+	
+//	public Collection<StageRating> findAll(){
+//	}
+	
+	public StageRating create(){
+		StageRating stageRating = new StageRating();
+		return stageRating;
+	}
+	
+	public void save(StageRating stageRating){
+		Assert.notNull(stageRating);
+		UserAccount userAccount=LoginService.getPrincipal();
+		Assert.isTrue(isPilgrim(userAccount));
+		
+		Pilgrim pilgrim = getPilgrim(userAccount);
+		Assert.isTrue(stageRating.getRegister().getPilgrim()==pilgrim);
+		
+		stageRatingRepository.save(stageRating);
+	}
+	
+//	public void delete (StageRating stageRating){
+//	}
+	
+	// ----------------- Other business methods ------------------
+	
+	// REPOSITORIO:
+	
+	// CASOS DE USO:
+	
+	// AUXILIARES
+	
+	public Boolean isPilgrim(UserAccount userAccount){
+		Boolean result=false;
+		Collection<Authority> authorities=userAccount.getAuthorities();
+		
+		for(Authority a:authorities){
+			if(a.getAuthority().equals("PILGRIM"))
+				result=true;
+		}
+		return result;
+	}
+	
+	private Pilgrim getPilgrim(UserAccount userAccount){
+		Pilgrim result = pilgrimService.findByUserAccount(userAccount);
+		return result;
+	}
+	
+}

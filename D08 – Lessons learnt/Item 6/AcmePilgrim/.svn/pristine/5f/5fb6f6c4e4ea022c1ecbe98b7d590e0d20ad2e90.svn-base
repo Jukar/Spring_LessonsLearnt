@@ -1,0 +1,48 @@
+package controllers.pilgrim;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import controllers.AbstractController;
+import domain.Pilgrim;
+
+import services.PilgrimService;
+
+
+@Controller
+@RequestMapping("pilgrim")
+public class PilgrimRegisterController extends AbstractController{
+	@Autowired 
+	private PilgrimService pilgrimService ;
+	
+	@RequestMapping(value="/register", method=RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		Pilgrim pilgrim;
+		System.out.println("ENTRA");
+		pilgrim=pilgrimService.create();
+		
+		result= createEditModelAndView(pilgrim);
+		
+		return result;
+	}
+	
+	
+	// Ancillary methods
+	protected ModelAndView createEditModelAndView(Pilgrim pilgrim){
+		ModelAndView result;
+		result=createEditModelAndView(pilgrim,null);
+		return result;
+	}
+	protected ModelAndView createEditModelAndView(Pilgrim pilgrim, String message){
+		ModelAndView result;
+		
+		result=new ModelAndView("pilgrim/register");
+		result.addObject("pilgrim",pilgrim);
+		result.addObject("message",message);
+		return result;
+	}
+}

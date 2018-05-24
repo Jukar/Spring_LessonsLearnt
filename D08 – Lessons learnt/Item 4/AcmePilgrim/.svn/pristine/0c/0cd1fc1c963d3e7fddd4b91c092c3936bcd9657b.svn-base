@@ -1,0 +1,16 @@
+package repositories;
+
+import java.util.Collection;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import domain.Pilgrim;
+import domain.Route;
+import domain.StageOrder;
+
+@Repository
+public interface StageOrderRepository extends JpaRepository<StageOrder,Integer>{
+
+}

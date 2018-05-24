@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- * PopulateDatabase.xml * * Copyright (C) 2014 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+
+	<!-- User accounts -->
+
+	<bean id="userAccount1" class="security.UserAccount">
+		<property name="username" value="admin1" />
+		<property name="password" value="admin1" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="admin2" />
+		<property name="password" value="admin2" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="super" />
+		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="PILGRIM" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="customer1" />
+		<property name="password" value="customer1" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PILGRIM" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="customer2" />
+		<property name="password" value="customer2" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PILGRIM" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="customer6" />
+		<property name="password" value="customer6" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PILGRIM" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<!-- Other domain beans come here -->
+
+	<bean id="creditCard4" class="domain.CreditCard">
+		<property name="holderName" value="HolderName4" />
+		<property name="brandName" value="Brand1" />
+		<property name="number" value="5698329020840038" />
+		<property name="expirationMonth" value="1" />
+		<property name="expirationYear" value="2018" />
+		<property name="cvvCode" value="154" />
+	</bean>
+	<bean id="creditCard5" class="domain.CreditCard">
+		<property name="holderName" value="HolderName5" />
+		<property name="brandName" value="Brand1" />
+		<property name="number" value="5698321377012188" />
+		<property name="expirationMonth" value="1" />
+		<property name="expirationYear" value="2017" />
+		<property name="cvvCode" value="135" />
+	</bean>
+	<bean id="creditCard6" class="domain.CreditCard">
+		<property name="holderName" value="HolderName6" />
+		<property name="brandName" value="Brand2" />
+		<property name="number" value="5698326993051908" />
+		<property name="expirationMonth" value="1" />
+		<property name="expirationYear" value="2016" />
+		<property name="cvvCode" value="130" />
+	</bean>
+
+
+	<bean id="outbox1" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="inbox1" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="trashbox1" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="outbox2" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="inbox2" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="trashbox2" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="outbox3" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="inbox3" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="trashbox3" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="outbox4" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="inbox4" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="trashbox4" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="outbox5" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="inbox5" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="trashbox5" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="outbox6" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="inbox6" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="trashbox6" class="domain.Folder">
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	
+	
+	<bean id="actor1" class="domain.Administrator">
+		<property name="name" value="adminName1" />
+		<property name="surname" value="Surname1" />
+		<property name="emailAddress" value="admin1@gmail.com" />
+		<property name="contactPhone" value="655892409" />
+		<property name="userAccount">
+			<ref bean="userAccount1" />
+		</property>
+		<property name="folders">
+			<list>
+				<ref bean="outbox1" />
+				<ref bean="inbox1" />
+				<ref bean="trashbox1" />
+			</list>
+		</property>
+		<property name="complaints">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="actor2" class="domain.Administrator">
+		<property name="name" value="adminName2" />
+		<property name="surname" value="Surname2" />
+		<property name="emailAddress" value="admin2@gmail.com" />
+		<property name="contactPhone" value="655312843" />
+		<property name="userAccount">
+			<ref bean="userAccount2" />
+		</property>
+		<property name="folders">
+			<list>
+				<ref bean="outbox2" />
+				<ref bean="inbox2" />
+				<ref bean="trashbox2" />
+			</list>
+		</property>
+		<property name="complaints">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="actor3" class="domain.Actor">
+		<property name="name" value="superName3" />
+		<property name="surname" value="Surname3" />
+		<property name="emailAddress" value="super3@gmail.com" />
+		<property name="contactPhone" value="655119810" />
+		<property name="userAccount">
+			<ref bean="userAccount3" />
+		</property>
+		<property name="folders">
+			<list>
+				<ref bean="outbox3" />
+				<ref bean="inbox3" />
+				<ref bean="trashbox3" />
+			</list>
+		</property>
+	</bean>
+	<bean id="actor4" class="domain.Pilgrim">
+		<property name="name" value="Name4" />
+		<property name="surname" value="Surname4" />
+		<property name="emailAddress" value="name4@gmail.com" />
+		<property name="contactPhone" value="655639002" />
+		<property name="userAccount">
+			<ref bean="userAccount4" />
+		</property>
+		<property name="folders">
+			<list>
+				<ref bean="outbox4" />
+				<ref bean="inbox4" />
+				<ref bean="trashbox4" />
+			</list>
+		</property>
+		<property name="creditCard">
+			<ref bean="creditCard4" />
+		</property>
+		<property name="birthDate" value="11/01/1995 12:35" />
+		<property name="nationality" value="Nationality1" />
+		<property name="complaints">
+			<list>
+			</list>
+		</property>
+		<property name="routes">
+			<list>
+			</list>
+		</property>
+		<property name="anecdotes">
+			<list>
+			</list>
+		</property>
+		<property name="registers">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="actor5" class="domain.Pilgrim">
+		<property name="name" value="Name5" />
+		<property name="surname" value="Surname5" />
+		<property name="emailAddress" value="name5@gmail.com" />
+		<property name="contactPhone" value="655111222" />
+		<property name="userAccount">
+			<ref bean="userAccount5" />
+		</property>
+		<property name="folders">
+			<list>
+				<ref bean="outbox5" />
+				<ref bean="inbox5" />
+				<ref bean="trashbox5" />
+			</list>
+		</property>
+		<property name="creditCard">
+			<ref bean="creditCard5" />
+		</property>
+		<property name="birthDate" value="20/01/1990 10:14" />
+		<property name="nationality" value="Nationality1" />
+		<property name="complaints">
+			<list>
+			</list>
+		</property>
+		<property name="routes">
+			<list>
+			</list>
+		</property>
+		<property name="anecdotes">
+			<list>
+			</list>
+		</property>
+		<property name="registers">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="actor6" class="domain.Pilgrim">
+		<property name="name" value="Name6" />
+		<property name="surname" value="Surname6" />
+		<property name="emailAddress" value="name6@gmail.com" />
+		<property name="contactPhone" value="655010123" />
+		<property name="userAccount">
+			<ref bean="userAccount6" />
+		</property>
+		<property name="folders">
+			<list>
+				<ref bean="outbox6" />
+				<ref bean="inbox6" />
+				<ref bean="trashbox6" />
+			</list>
+		</property>
+		<property name="creditCard">
+			<ref bean="creditCard6" />
+		</property>
+		<property name="birthDate" value="16/02/1985 21:40" />
+		<property name="nationality" value="Nationality1" />
+		<property name="complaints">
+			<list>
+			</list>
+		</property>
+		<property name="routes">
+			<list>
+			</list>
+		</property>
+		<property name="anecdotes">
+			<list>
+			</list>
+		</property>
+		<property name="registers">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+	
+
+	<bean id="gpsOurense" class="domain.GPS">
+		<property name="title" value="Ourense" />
+		<property name="description" value="The city of Ourense" />
+		<property name="longitude" value="7.51" />
+		<property name="latitude" value="42.20" />
+	</bean>
+	<bean id="gpsPontevedra" class="domain.GPS">
+		<property name="title" value="Pontevedra" />
+		<property name="description" value="The city of Pontevedra" />
+		<property name="longitude" value="8.38" />
+		<property name="latitude" value="42.25" />
+	</bean>
+	<bean id="gpsSantiago" class="domain.GPS">
+		<property name="title" value="Santiago de Compostela" />
+		<property name="description" value="The end of the path" />
+		<property name="longitude" value="8.32" />
+		<property name="latitude" value="42.50" />
+	</bean>
+
+
+
+	<bean id="stage1" class="domain.Stage">
+		<property name="name" value="village1" />
+		<property name="description" value="This is the village1" />
+		<property name="origin">
+			<ref bean="gpsOurense" />
+		</property>
+		<property name="destination">
+			<ref bean="gpsPontevedra" />
+		</property>
+		<property name="lenghtKm" value="116" />
+		<property name="lenghtMi" value="72" />
+		<property name="difficultyLevel" value="2" />
+		<property name="briefTextDescription" value="This is the briefing from Stage 1" />
+		<property name="ratingL" value="0.0" />
+		<property name="ratingD" value="0.0" />
+		<property name="stageRatings">
+			<list>
+			</list>
+		</property>
+		<property name="routes">
+			<list>
+				<ref bean="route1"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="stage2" class="domain.Stage">
+		<property name="name" value="Santiago de Compostela" />
+		<property name="description" value="This is the end of your trip" />
+		<property name="origin">
+			<ref bean="gpsPontevedra" />
+		</property>
+		<property name="destination">
+			<ref bean="gpsSantiago" />
+		</property>
+		<property name="lenghtKm" value="66" />
+		<property name="lenghtMi" value="41" />
+		<property name="difficultyLevel" value="1" />
+		<property name="briefTextDescription" value="This is the briefing from Stage 2" />
+		<property name="ratingL" value="0.0" />
+		<property name="ratingD" value="0.0" />
+		<property name="stageRatings">
+			<list>
+			</list>
+		</property>
+		<property name="routes">
+			<list>
+				<ref bean="route1"/>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="route1" class="domain.Route">
+		<property name="name" value="Route1" />
+		<property name="description" value="This is a nice route :)" />
+		<property name="ratingL" value="0.0" />
+		<property name="ratingD" value="0.0" />
+		<property name="active" value="true"/>
+		<property name="pilgrims">
+			<list>
+			</list>
+		</property>
+		<property name="stages">
+			<list>
+				<ref bean="stage1" />
+				<ref bean="stage2" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

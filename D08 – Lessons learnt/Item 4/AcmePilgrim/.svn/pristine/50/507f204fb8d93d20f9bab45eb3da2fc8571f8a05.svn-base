@@ -1,0 +1,94 @@
+package services;
+
+import java.util.Collection;
+import java.util.Date;
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import repositories.ComplaintRepository;
+import security.LoginService;
+import security.UserAccount;
+
+import domain.Complaint;
+import domain.Pilgrim;
+
+@Transactional
+@Service
+public class ComplaintService {
+//	Managed repository -----------------------------------------
+	@Autowired
+	private ComplaintRepository complaintRepository;
+//	Supporting services ----------------------------------------
+	@Autowired
+	private PilgrimService pilgrimService;
+//	Constructor ------------------------------------------------
+//	Simple CRUD methods ----------------------------------------
+	public Complaint create(){
+		UserAccount userAccount=LoginService.getPrincipal();
+		Pilgrim pilgrim=pilgrimService.findByUserAccount(userAccount);
+		Complaint result=new Complaint();
+		
+//		result.setAdministrator(administrator);
+		result.setCreationMoment(new Date());
+//		result.setDescription(description);
+		result.setPilgrim(pilgrim);
+//		result.setResolution(resolution);
+//		result.setStatus(status);
+//		result.setTitle(title);
+		
+		return result;
+	}
+	public Complaint findOne(int complaintId){
+		Assert.notNull(complaintId);
+		Complaint result=complaintRepository.findOne(complaintId);
+		return result;
+	}
+	public Collection<Complaint> findAll(){
+		Collection<Complaint> result=complaintRepository.findAll();
+		return result;
+	}
+	public void save(Complaint complaint){
+		Assert.notNull(complaint);
+		checkPrincipal(complaint);
+		
+		UserAccount userAccount=LoginService.getPrincipal();
+		Pilgrim pilgrim=pilgrimService.findByUserAccount(userAccount);
+		Collection<Complaint> complaints=pilgrim.getComplaints();
+		complaints.add(complaint);
+		pilgrim.setComplaints(complaints);
+		
+		complaintRepository.saveAndFlush(complaint);
+	}
+	public void delete(Complaint complaint){
+		Assert.notNull(complaint);
+		checkPrincipal(complaint);
+		complaintRepository.delete(complaint);
+	}
+//	Other business methods -------------------------------------
+	public Double avrComplaint(){
+		Double result=complaintRepository.avrComplaint();
+		return result;
+	}
+	
+	public Collection<Complaint> findByPilgrimId(int pilgrimId){
+		Collection<Complaint> result=complaintRepository.findByPilgrimId(pilgrimId);
+		return result;
+	}
+	
+	public Collection<Complaint> findByAdministratorId(int administratorId){
+		Collection<Complaint> result=complaintRepository.findByAdministratorId(administratorId);
+		return result;
+	}
+	
+	
+	
+	private void checkPrincipal(Complaint complaint){
+		UserAccount userAccount=LoginService.getPrincipal();
+		Pilgrim pilgrim=pilgrimService.findByUserAccount(userAccount);
+		Assert.isTrue(complaint.getPilgrim().getId()==pilgrim.getId());
+	}
+}

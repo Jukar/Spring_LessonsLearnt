@@ -1,0 +1,31 @@
+package repositories;
+
+import java.util.Collection;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import domain.Pilgrim;
+import domain.Route;
+
+@Repository
+public interface RouteRepository extends JpaRepository<Route,Integer>{
+
+//	@Query("select r from Route r order by lenght(r.registrations) desc")
+	@Query("select r from Route r order by r.registrations.size desc")
+	Collection<Route> routesByRegistrationsDesc();
+	
+	
+	// TODO CORREGIDO Se ha de buscar por keyword "dentro de", no por nombre o descripción como tal.
+//	@Query("select r from Route r where r.description=?1 or r.name=?1")
+//	// or ?1 member of r.tags
+
+	@Query("select r from Route r join r.stages s where " +
+										"r.name.contains(?1) or r.description.contains(?1) or " +
+										"s.name.contains(?1) or s.description.contains(?1) or " +
+										"s.origin.title.contains(?1) or s.origin.description.contains(?1) or " +
+										"s.destination.title.contains(?1) or s.destination.description.contains(?1)")
+	Collection<Route> routeByKeyword(String keyword);
+
+	@Query("select r from Route r where ?1 member of r.pilgrims")
+	Collection<Route> findByPilgrim(Pilgrim pilgrim);
+}

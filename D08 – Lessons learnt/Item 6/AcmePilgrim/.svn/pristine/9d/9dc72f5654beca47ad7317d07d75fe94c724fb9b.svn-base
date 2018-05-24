@@ -1,0 +1,29 @@
+package services;
+
+import java.util.Collection;
+import javax.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import repositories.StageRepository;
+
+import domain.Stage;
+@Service
+@Transactional
+public class StageService {
+	@Autowired
+	private StageRepository stageRepository;
+	
+	public void save(Stage stage) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public Stage findOne(int stageId){
+		return stageRepository.findOne(stageId);
+	}
+	
+	public Collection<Stage> findAll(){
+		return stageRepository.findAll();
+	}
+
+}

@@ -1,0 +1,62 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+
+<form:form action="pilgrim/register.do" modelAtribute="pilgrim">
+	<form:hidden path="id"/>
+	<form:hidden path="version"/>
+	<form:hidden path="complaints"/>
+	<form:hidden path="anecdotes"/>
+	<form:hidden path="registers"/>
+	<form:hidden path="userAccount"/>
+	<form:hidden path="folders"/>
+	<form:hidden path="surname"/>
+	<form:hidden path="emailAddress"/>
+	<form:hidden path="contactPhone"/>
+	<form:hidden path="url"/>
+	<form:hidden path="creditCard"/>
+	<form:hidden path="birthDate"/>
+	<form:hidden path="nationality"/>
+	
+	<fieldset>
+		<legend align="left">
+			<spring:message code="pilgrim.userAccount"/>
+		</legend>
+		
+		<%-- <form:label path="userAccount.username">
+			<spring:message code="pilgrim.userAccount.username"/>
+		</form:label>
+		<form:input path="userAccount.username"/>
+		<form:errors cssClass="error" path="userAccount.username"/>
+		<br/>
+		
+		<form:label path="userAccount.password">
+			<spring:message code="pilgrim.userAccount.password"/>
+		</form:label>
+		<form:input path="userAccount.password"/>
+		<form:errors cssClass="error" path="userAccount.password"/>
+		<br/> --%>
+	</fieldset>
+	
+	<fieldset>
+		<legend align="left">
+			<spring:message code="pilgrim.personalInfo"/>
+		</legend>
+		
+		<form:label path="name">
+			<spring:message code="pilgrim.name"/>
+		</form:label>
+		<form:input path="name"/>
+		<form:errors cssClass="error" path="name"/>
+		<br/>
+	</fieldset>
+	
+	<input type="submit" name="save" value="<spring:message code="pilgrim.userAccount.password"/>" />
+</form:form>

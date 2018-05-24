@@ -1,0 +1,51 @@
+package services;
+
+import java.util.Collection;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import repositories.AdministratorRepository;
+import security.UserAccount;
+import domain.Administrator;
+
+@Transactional
+@Service
+public class AdministratorService {
+
+	//	Managed repository -----------------------------------------	
+	@Autowired
+	private AdministratorRepository administratorRepository;
+	//	Supporting services ----------------------------------------
+	//	Constructor ------------------------------------------------
+	//	Simple CRUD methods ----------------------------------------
+	public Administrator create(){
+		return new Administrator();
+	}
+	
+	public Collection<Administrator> findAll(){
+		Collection<Administrator> result = administratorRepository.findAll();
+		return result;
+	}
+	
+	public Administrator findOne(int administratorId){
+		Administrator result = administratorRepository.findOne(administratorId);
+		return result;
+	}
+	
+	public void save(Administrator administrator){
+		administratorRepository.saveAndFlush(administrator);
+	}
+	
+	public void delete(Administrator administrator){
+		administratorRepository.delete(administrator);
+	}
+	
+	//	Other business methods -------------------------------------
+	public Administrator findByUserAccount(UserAccount userAccount) {
+		Administrator result = administratorRepository.findByUserAccount(userAccount);
+		return result;
+	}
+}

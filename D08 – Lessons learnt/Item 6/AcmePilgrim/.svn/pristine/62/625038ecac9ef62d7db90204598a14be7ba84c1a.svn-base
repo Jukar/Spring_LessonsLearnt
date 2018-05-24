@@ -1,0 +1,107 @@
+package domain;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
+
+@Entity
+@Access(AccessType.PROPERTY)
+public class Stage extends DomainEntity{
+	// Attributes ----------------------------------------------------
+	private String name;
+	private String description;
+	private GPS origin;
+	private GPS destination;
+	private Integer lenghtKm;
+	private Integer lenghtMi;
+	private Integer difficultyLevel;
+	private String briefTextDescription;
+	private Double ratingL;
+	private Double ratingD;
+	
+	// Getters&Setters ----------------------------------------------------
+	
+	@NotBlank
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	@NotBlank
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
+	public GPS getOrigin() {
+		return origin;
+	}
+	public void setOrigin(GPS origin) {
+		this.origin = origin;
+	}
+	
+	
+	public GPS getDestination() {
+		return destination;
+	}
+	public void setDestination(GPS destination) {
+		this.destination = destination;
+	}
+	
+	
+	public Integer getLenghtKm() {
+		return lenghtKm;
+	}
+	public void setLenghtKm(Integer lenghtKm) {
+		this.lenghtKm = lenghtKm;
+	}
+	
+	
+	public Integer getLenghtMi() {
+		return lenghtMi;
+	}
+	public void setLenghtMi(Integer lenghtMi) {
+		this.lenghtMi = lenghtMi;
+	}
+	
+	@Range(min=0,max=10)
+	public Integer getDifficultyLevel() {
+		return difficultyLevel;
+	}
+	public void setDifficultyLevel(Integer difficultyLevel) {
+		this.difficultyLevel = difficultyLevel;
+	}
+	
+	@NotBlank
+	public String getBriefTextDescription() {
+		return briefTextDescription;
+	}
+	public void setBriefTextDescription(String briefTextDescription) {
+		this.briefTextDescription = briefTextDescription;
+	}
+	
+	public Double getRatingL() {
+		return ratingL;
+	}
+	public void setRatingL(Double ratingL) {
+		this.ratingL = ratingL;
+	}
+	
+	public Double getRatingD() {
+		return ratingD;
+	}
+	public void setRatingD(Double ratingD) {
+		this.ratingD = ratingD;
+	}
+	
+	
+	// Relationships ----------------------------------------------------
+}

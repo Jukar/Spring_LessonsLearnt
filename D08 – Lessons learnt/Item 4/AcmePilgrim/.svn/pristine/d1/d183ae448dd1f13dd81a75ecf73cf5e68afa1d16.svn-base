@@ -1,0 +1,45 @@
+package domain;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+@Entity
+@Access(AccessType.PROPERTY)
+public class Route extends DomainEntity{
+
+	// Attributes -------------------------------------------------------------
+	private String name;
+	private String description;
+	private Double ratingL;
+	private Double ratingD;
+	
+	@NotBlank
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	@NotBlank
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public Double getRatingL() {
+		return ratingL;
+	}
+	public void setRatingL(Double ratingL) {
+		this.ratingL = ratingL;
+	}
+	public Double getRatingD() {
+		return ratingD;
+	}
+	public void setRatingD(Double ratingD) {
+		this.ratingD = ratingD;
+	}
+}

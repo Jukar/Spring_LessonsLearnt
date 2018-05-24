@@ -1,0 +1,18 @@
+package services;
+
+import security.UserAccount;
+import domain.Pilgrim;
+
+public class PilgrimService {
+
+	public Pilgrim findByUserAccount(UserAccount userAccount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	// @Query(select p from Profesor p where p.userAccount=?1)
+			// Profesor findByUserAccount(UserAccont userAccount);
+
+	public void save(Pilgrim pilgrim) {
+		// TODO Auto-generated method stub
+	}
+}

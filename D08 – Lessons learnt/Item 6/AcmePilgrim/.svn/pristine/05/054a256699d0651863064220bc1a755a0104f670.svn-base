@@ -1,0 +1,65 @@
+package domain;
+
+import java.util.Date;
+
+import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+
+public class Complaint extends DomainEntity{
+	private String title;
+	private Date creationMoment;
+	private String description;
+	private String resolution;
+	private String discuss;
+	private String status;
+	
+	@NotBlank
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	@Past
+	public Date getCreationMoment() {
+		return creationMoment;
+	}
+	public void setCreationMoment(Date creationMoment) {
+		this.creationMoment = creationMoment;
+	}
+	
+	@NotBlank
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
+	public String getResolution() {
+		return resolution;
+	}
+	public void setResolution(String resolution) {
+		this.resolution = resolution;
+	}
+	
+	public String getDiscuss() {
+		return discuss;
+	}
+	public void setDiscuss(String discuss) {
+		this.discuss = discuss;
+	}
+	
+	@NotBlank
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+}

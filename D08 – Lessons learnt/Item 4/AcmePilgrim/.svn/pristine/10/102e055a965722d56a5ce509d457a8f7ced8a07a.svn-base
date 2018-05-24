@@ -1,0 +1,154 @@
+package services;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+
+import javax.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import domain.Pilgrim;
+import domain.Route;
+import repositories.RouteRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
+import org.springframework.util.Assert;
+
+@Service
+@Transactional
+public class RouteService {
+	
+	// ------------------- Managed repository --------------------
+	
+	@Autowired
+	private RouteRepository routeRepository;
+	
+	// ------------------- Supporting services -------------------
+	
+	@Autowired
+	private PilgrimService pilgrimService;
+//	@Autowired
+//	private AdministratorService administratorService;
+	
+	// ----------------------- Constructor -----------------------
+	
+	// ------------------- Simple CRUD methods -------------------
+	
+	public Route findOne(int routeId) {
+		return routeRepository.findOne(routeId);
+	}
+	
+	public Collection<Route> findAll(){
+		return routeRepository.findAll();
+	}
+	
+	public Route create(){
+		Route route = new Route();
+		route.setActived(true);
+		return route;
+	}
+	
+	public void save(Route route){
+		Assert.notNull(route);
+		Assert.isTrue(isAdministrator());
+		routeRepository.save(route);
+	}
+	
+	public void delete (Route route){
+		Assert.notNull(route);
+		Assert.isTrue(isAdministrator());
+		route.setActived(false);
+		routeRepository.save(route);
+	}
+	
+	// ----------------- Other business methods ------------------
+	
+	// REPOSITORIO:
+	
+	public Collection<Route> routesByRegistrationsDesc() {
+		return routeRepository.routesByRegistrationsDesc();
+	}
+	
+	public Collection<Route> activeRoutes() {
+		return routeRepository.findActives();
+	}
+	
+	public Collection<Route> routesByAveRatingAsc() {
+		return routeRepository.routesByAveRatingAsc();
+	}
+	
+	public Collection<Route> routesByKeyword(String keyword){
+		Assert.notNull(keyword);
+		
+		Collection<Route> result = new HashSet<Route>();	//	No admite duplicados
+		result.addAll(routeRepository.routeByKeyword("'%"+keyword+"%'"));
+		return result;
+	}
+	
+	// CASOS DE USO:
+	
+	public Collection<Route> findByPilgrim(){
+		UserAccount userAccount = LoginService.getPrincipal();
+		Pilgrim pilgrim = getPilgrim(userAccount);
+		return routeRepository.findByPilgrim(pilgrim);
+	}
+	
+	// AUXILIARES
+	
+	Boolean isAdministrator(){
+		UserAccount userAccount = LoginService.getPrincipal();
+		Boolean result=false;
+		Collection<Authority> authorities=userAccount.getAuthorities();
+		
+		for(Authority a:authorities){
+			if(a.getAuthority().equals("ADMIN"))
+				result=true;
+		}
+		return result;
+	}
+	
+	private Pilgrim getPilgrim(UserAccount userAccount){
+		Pilgrim result = pilgrimService.findByUserAccount(userAccount);
+		return result;
+	}
+
+	public Collection<Route> findByPilgrimId(int pilgrimId) {
+		Pilgrim pilgrim=pilgrimService.findOne(pilgrimId);
+		Collection<Route> routes=new ArrayList<Route>(); 
+		routes=routeRepository.findByPilgrim(pilgrim);
+		return routes;
+	}
+
+//	private Boolean isPrincipal(Route route, UserAccount userAccount) {
+//		Boolean result = false;
+//		Assert.isTrue(isPilgrim(userAccount));
+//	
+//		Pilgrim pilgrim = getPilgrim(userAccount);
+//		Collection<Route> routes = pilgrim.getRoutes();
+//	
+//		for(Route aux : routes){
+//			if(aux.getId() == route.getId())
+//				result = true;
+//		}
+//		return result;
+//	}
+
+//	public Boolean isPilgrim(UserAccount userAccount){
+//		Boolean result=false;
+//		Collection<Authority> authorities=userAccount.getAuthorities();
+//	
+//		for(Authority a:authorities){
+//			if(a.getAuthority().equals("PILGRIM"))
+//				result=true;
+//		}
+//		return result;
+//	}
+	
+//	private Administrator getAdministrator(UserAccount userAccount){
+//		Administrator result = administratorService.findByUserAccount(userAccount);
+//		return result;
+//	}
+	
+}

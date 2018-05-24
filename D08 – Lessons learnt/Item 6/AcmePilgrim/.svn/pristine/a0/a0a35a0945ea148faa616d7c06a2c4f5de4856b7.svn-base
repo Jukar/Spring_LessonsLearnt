@@ -1,0 +1,38 @@
+package services;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import repositories.DiscussRepository;
+
+@Transactional
+@Service
+public class DiscussService {
+//	Managed repository -----------------------------------------	
+	@Autowired
+	private DiscussRepository discussRepository;
+//	Supporting services ----------------------------------------
+//	Constructor ------------------------------------------------
+//	Simple CRUD methods ----------------------------------------
+	public Discuss create(){
+		Discuss result;
+		return result;
+	}
+	public Discuss findOne(int discussId){
+		Discuss result;
+		return result;
+	}
+	public Collection<Discuss> findAll(){
+		Collection<Discuss> result;
+		return result;
+	}
+	public void save(Discuss discuss){
+		
+	}
+	public void delete(Discuss discuss){
+		
+	}
+//	Other business methods -------------------------------------
+}

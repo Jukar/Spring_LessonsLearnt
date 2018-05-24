@@ -1,0 +1,33 @@
+package repositories;
+
+import java.util.Collection;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import security.UserAccount;
+
+import domain.Pilgrim;
+
+@Repository
+public interface PilgrimRepository extends JpaRepository<Pilgrim,Integer>{
+
+	@Query("select p from Pilgrim p where p.userAccount=?1")
+	Pilgrim findByUserAccount(UserAccount userAccount);
+	
+	@Query("select p,p.routes from Pilgrim p where p=?1")
+	Object[] findPilgrimProfile(Pilgrim pilgrim);
+	
+	@Query("select p,p.routes from Pilgrim p where p.name=?1 or p.surname=?1 or p.emailAddress=?1")
+	Collection<Pilgrim> findPilgrimByKeyword(String keyword);
+	
+	@Query("select p from Pilgrim p order by lenght(p.registrations) desc")
+	Object[] listPilgrimRegistrationDesc();
+	
+	@Query("select p from Pilgrim p where p.anecdotes.size=(select max(pil.anecdotes.size) from Pilgrim pil)")
+	Collection<Pilgrim> findPilgrimWhithMoreAnecdotes();
+	
+	@Query("select p from Pilgrim p where p.complains.size=(select max(pil.complains.size) from Pilgrim pil)")
+	Pilgrim findPilgimMoreComplaint();
+}

@@ -1,0 +1,22 @@
+package repositories;
+
+import java.util.Collection;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import domain.Folder;
+
+public interface FolderRepository extends JpaRepository<Folder,Integer>{
+	@Query("select a.inbox from Actor a where a.id=?1")
+	Folder getInboxByActorId(int id);
+	
+	@Query("select a.outbox from Actor a where a.id=?1")
+	Folder getOutboxByActorId(int id);
+
+	@Query("select a.inbox.id,a.outbox.id from Actor a where a.id=?1")
+	Folder[] getInboxOutboxByActorId(int id);
+	
+	@Query("select f from Actor a join a.folders f where a.id=?1")
+	Collection<Folder> getByActorId(int id);
+}

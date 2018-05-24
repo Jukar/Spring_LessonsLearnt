@@ -1,0 +1,45 @@
+package controllers;
+
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import security.LoginService;
+import services.MessageService;
+
+import domain.Anecdote;
+import domain.Message;
+
+@Controller
+@RequestMapping("/message")
+public class MessageController extends AbstractController {
+//	Services --------------------------------------------------------------
+	@Autowired
+	private MessageService messageService;
+	
+	@RequestMapping("/list")
+	public ModelAndView list() {
+		ModelAndView result;
+		
+		Collection<Message> aux=messageService.messagesByActor();
+		Collection<Message> messagesInInbox;
+		messagesInInbox=messageService.getFromInbox();
+		Collection<Message> messagesInOutbox;
+		messagesInOutbox=messageService.getFromOutbox();
+		Collection<Message> messagesInTrashbox;
+		messagesInTrashbox=messageService.getFromTrashBox();
+		
+		result = new ModelAndView("message/list");
+		result.addObject("messagesInInbox",messagesInInbox);
+		result.addObject("messagesInOutbox",messagesInOutbox);
+		result.addObject("messagesInTrashbox",messagesInTrashbox);
+		
+		String requestURI="message/list.do";
+		result.addObject("requestURI", requestURI);
+		
+		return result;
+	}
+}
